@@ -32,3 +32,29 @@ par(mfrow = c(2,1), mar = c(4, 4, 2, 1))
 hist(subset(pollution, region == "east")$pm25, col = "green")
 hist(subset(pollution, region == "west")$pm25, col = "green")
 
+with(pollution, plot(latitude, pm25))
+abline(h = 12, lwd=2, lty=2)
+
+with(pollution, plot(latitude, pm25, col = region))  # how to specify colors for each region?
+abline(h = 12, lwd=2, lty=2)
+
+par(mfrow = c(1,2), mar = c(5, 4, 2, 1))  # default margin is c(5.1,4.1,4.1,2.1) (B, L, T, R), par()$mar
+with(subset(pollution, region == "west"), plot(latitude, pm25, main = "West", ylim = c(0,20)))
+abline(h = 12, lwd=2, lty=2)
+with(subset(pollution, region == "east"), plot(latitude, pm25, main = "East", ylim = c(0,20)))
+abline(h = 12, lwd=2, lty=2)
+
+# 3 Plotting Systems in R
+# Base plotting system (plot, boxplot, hist, etc.)
+data("cars")
+with(cars, plot(speed, dist))
+# Lattice system (xyplot, bwplot, etc.)
+library(lattice)
+state = data.frame(state.x77, region = state.region)
+xyplot(Life.Exp ~ Income | region, data = state, layout = c(4,1))
+
+# gglot2 system
+library(ggplot2)
+data(mpg)
+qplot(displ, hwy, data = mpg)
+
